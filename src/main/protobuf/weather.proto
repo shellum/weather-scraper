@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+enum WeatherSource {
+    chan2 = 0;
+    chan5 = 1;
+}
+
+enum WeatherType {
+    rain = 0;
+    snow = 1;
+    sun = 2;
+    clouds = 3;
+}
+
+message Weather {
+    int32 high = 1;
+    int32 low = 2;
+    string weather = 3;
+    string source = 4;
+    string date = 5;
+    int32 daysOut = 6;
+}
