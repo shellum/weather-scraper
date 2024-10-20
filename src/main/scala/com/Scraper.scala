@@ -39,10 +39,10 @@ object Scraper {
     val high = doc.select(highSelector).text().trim.toInt
     val weather = getWeatherFromString(doc.select(weatherSelector).attr("srcset"))
     val zeroBasedDaysOut = day - 1
-    Weather(low, high, weather, WeatherSource.chan5.toString, daysOut = zeroBasedDaysOut)
+    Weather(high, low, weather, WeatherSource.chan5.toString, daysOut = zeroBasedDaysOut)
   }
 
-  def getWeatherStatsChan2(day: Int): Weather = { // WeatherDay-module_DayContainer__hCx1
+  def getWeatherStatsChan2(day: Int): Weather = {
     println(s"chan2 day: $day")
     def selectorTemplate(day: Int, subSelector: String) = s".WeatherWeek-module_WeekContainer__hkVI > div:nth-child(${day})  $subSelector"
     val lowSelector = selectorTemplate(day, "div[class^=WeatherDay-module_low]")
@@ -53,6 +53,7 @@ object Scraper {
     val Array(highVal, lowVal) = high.text().trim.replaceAll("[^0-9 ]","").split(" ").map(_.toInt)
     val weather = getWeatherFromInt(doc.select(weatherSelector).text())
     val zeroBasedDaysOut = day - 1
-    Weather(lowVal, highVal, weather, WeatherSource.chan2.toString, daysOut = zeroBasedDaysOut)
+    Weather(highVal, lowVal, weather, WeatherSource.chan2.toString, daysOut = zeroBasedDaysOut)
   }
+
 }
